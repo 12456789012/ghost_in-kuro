@@ -665,6 +665,70 @@ MOBILE VERSION
         padding: 80px 20px;
     }
 
+    @media (max-width: 768px) {
+
+    nav {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .logo img {
+        width: 80px;
+    }
+
+    .nav-links {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links a {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .hero {
+        padding: 20px 20px 40px;
+        min-height: auto;
+    }
+
+    .hero-logo {
+        width: 85vw;
+        max-width: 340px;
+    }
+
+    .hero p {
+        font-size: 12px;
+        margin-top: 14px;
+    }
+
+    .enter-btn {
+        font-size: 11px;
+        padding: 12px 22px;
+        margin-bottom: 30px;
+    }
+
+    .system-section {
+        min-height: auto;
+        padding: 60px 24px;
+    }
+
+    .system-container h2 {
+        font-size: 32px;
+    }
+
+    .system-text {
+        font-size: 13px;
+    }
+
+    .ig-link {
+        font-size: 11px;
+        padding: 10px 20px;
+    }
+}
+
 }
 
 /* =====================
