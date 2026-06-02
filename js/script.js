@@ -44,15 +44,18 @@ window.addEventListener("load", () => {
         });
     });
 
-    /* ENTER BUTTON */
-    document.querySelectorAll(".enter-btn").forEach(btn => {
+/* ENTER BUTTON */
+document.querySelectorAll(".enter-btn").forEach(btn => {
     btn.addEventListener("click", (e) => {
-        // On laisse le href="#system" faire son scroll naturellement
-        // On anime juste le texte sans preventDefault
+        const target = document.querySelector("#system");
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+        }
         btn.innerText = "BOOTING...";
         setTimeout(() => btn.innerText = "ACCESS GRANTED ↓", 800);
         setTimeout(() => btn.innerText = "ENTER SYSTEM", 2000);
     });
+});
 }); 
 
     /* CARD CLICK */
@@ -109,7 +112,6 @@ window.addEventListener("load", () => {
             a.style.textShadow = "0 0 12px rgba(160,120,255,0.8)";
         }
     });
-});
 
 
 /* =========================
