@@ -46,14 +46,14 @@ window.addEventListener("load", () => {
 
     /* ENTER BUTTON */
     document.querySelectorAll(".enter-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-
-            btn.innerText = "BOOTING SYSTEM...";
-
-            setTimeout(() => btn.innerText = "SYSTEM READY", 1200);
-            setTimeout(() => btn.innerText = "ENTER SYSTEM", 2200);
-        });
+    btn.addEventListener("click", (e) => {
+        // On laisse le href="#system" faire son scroll naturellement
+        // On anime juste le texte sans preventDefault
+        btn.innerText = "BOOTING...";
+        setTimeout(() => btn.innerText = "ACCESS GRANTED ↓", 800);
+        setTimeout(() => btn.innerText = "ENTER SYSTEM", 2000);
     });
+}); 
 
     /* CARD CLICK */
     document.querySelectorAll(".card").forEach(card => {

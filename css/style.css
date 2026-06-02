@@ -719,3 +719,31 @@ SYSTEM SECTION
 html {
     scroll-behavior: smooth;
 }
+
+/* =====================
+   INSTAGRAM LINK
+===================== */
+
+.ig-link {
+    display: inline-block;
+    margin-top: 32px;
+
+    padding: 12px 28px;
+    border: 1px solid rgba(160,120,255,0.45);
+    background: rgba(160,120,255,0.05);
+
+    color: rgba(180,120,255,0.9);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    transition: 0.3s ease;
+}
+
+.ig-link:hover {
+    background: rgba(160,120,255,0.14);
+    box-shadow: 0 0 24px rgba(160,120,255,0.2);
+    color: white;
+    transform: translateY(-3px);
+}
