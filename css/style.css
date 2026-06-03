@@ -605,69 +605,6 @@ MOBILE VERSION
 @media (max-width: 768px) {
 
     nav {
-
-        padding: 20px;
-
-        flex-direction: column;
-        gap: 18px;
-
-        align-items: center;
-    }
-
-    .logo img {
-
-        width: 95px;
-    }
-
-    .nav-links {
-
-        gap: 18px;
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-    }
-
-    .nav-links a {
-
-        font-size: 10px;
-
-        letter-spacing: 1px;
-    }
-
-    .hero {
-
-        padding: 40px 20px;
-    }
-
- .hero-logo {
-
-    width: 420px;
-
-    max-width: 95vw;
-
-}
-
-    .grid {
-
-        grid-template-columns: 1fr;
-
-        max-width: 320px;
-    }
-
-    .card {
-
-        height: 200px;
-    }
-
-    .shop {
-
-        padding: 80px 20px;
-    }
-
-    @media (max-width: 768px) {
-
-    nav {
         padding: 16px 20px;
         flex-direction: column;
         gap: 12px;
@@ -727,8 +664,6 @@ MOBILE VERSION
         font-size: 11px;
         padding: 10px 20px;
     }
-}
-
 }
 
 /* =====================
