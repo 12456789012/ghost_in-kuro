@@ -425,6 +425,14 @@ body {
     cursor: none;
 }
 
+*, *::before, *::after {
+    cursor: none !important;
+}
+
+a, button {
+    cursor: none !important;
+}
+
 /* cercle principal */
 .cursor-dot {
     position: fixed;
