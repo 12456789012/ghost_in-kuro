@@ -53,7 +53,7 @@ window.addEventListener("load", () => {
                 target.scrollIntoView({ behavior: "smooth" });
             }
             btn.innerText = "BOOTING...";
-            setTimeout(() => btn.innerText = "ACCESS GRANTED ↓", 800);
+            setTimeout(() => btn.innerText = "ACCESS GRANTED", 800);
             setTimeout(() => btn.innerText = "ENTER SYSTEM", 2000);
         });
     });
