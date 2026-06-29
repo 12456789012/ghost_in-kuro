@@ -37,7 +37,9 @@ window.addEventListener("load", () => {
     /* ACTIVE PAGE */
     const page = location.pathname.split("/").pop();
     document.querySelectorAll(".nav-links a").forEach(a => {
-        if (a.getAttribute("href") === page) {
+        const href = a.getAttribute("href");
+        const isCollectionItem = page.startsWith("product-") && href === "collections.html";
+        if (href === page || isCollectionItem) {
             a.style.color = "rgba(180,120,255,1)";
             a.style.textShadow = "0 0 12px rgba(160,120,255,0.8)";
         }
