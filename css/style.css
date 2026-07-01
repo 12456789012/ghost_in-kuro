@@ -686,6 +686,199 @@ p {
     margin-top: 34px;
 }
 
+.drop-preview {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.92fr) minmax(320px, 1.08fr);
+    gap: clamp(24px, 5vw, 58px);
+    align-items: center;
+    max-width: var(--max);
+    min-height: 92vh;
+    margin: 0 auto;
+    padding: 96px clamp(20px, 5vw, 60px);
+}
+
+.drop-copy {
+    position: relative;
+}
+
+.drop-copy::before {
+    content: "";
+    position: absolute;
+    top: -34px;
+    left: 0;
+    width: min(340px, 78vw);
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), var(--fault), transparent);
+    opacity: 0.55;
+    animation: fractureBlink 6.2s steps(1) infinite;
+}
+
+.drop-copy h2 {
+    margin-top: 18px;
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: clamp(32px, 5vw, 58px);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 26px rgba(184, 153, 255, 0.14);
+}
+
+.drop-copy p:not(.system-tag) {
+    max-width: 520px;
+    color: rgba(246, 244, 255, 0.68);
+}
+
+.drop-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-top: 34px;
+}
+
+.ghost-link {
+    position: relative;
+    padding: 13px 0;
+    color: rgba(246, 244, 255, 0.72);
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.28s ease, text-shadow 0.28s ease;
+}
+
+.ghost-link::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 7px;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    transform: scaleX(0.35);
+    transform-origin: left;
+    transition: transform 0.28s ease;
+}
+
+.ghost-link:hover {
+    color: white;
+    text-shadow: 0 0 14px rgba(111, 231, 255, 0.22);
+}
+
+.ghost-link:hover::after {
+    transform: scaleX(1);
+}
+
+.drop-feature {
+    position: relative;
+    display: grid;
+    min-height: 560px;
+    overflow: hidden;
+    border: 1px solid rgba(184, 153, 255, 0.18);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.016)),
+        radial-gradient(circle at 52% 38%, rgba(111, 231, 255, 0.14), transparent 42%),
+        rgba(5, 5, 8, 0.58);
+    color: white;
+    text-decoration: none;
+    backdrop-filter: blur(14px);
+    transition: transform 0.36s ease, border-color 0.36s ease, box-shadow 0.36s ease;
+}
+
+.drop-feature::before,
+.drop-feature::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.drop-feature::before {
+    inset: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    clip-path: polygon(0 0, 64% 0, 64% 10px, 100% 10px, 100% 100%, 20px 100%, 20px calc(100% - 10px), 0 calc(100% - 10px));
+}
+
+.drop-feature::after {
+    inset: 0;
+    background:
+        linear-gradient(90deg, transparent 0 47%, rgba(111, 231, 255, 0.08) 47.5% 48%, transparent 48.5% 100%),
+        repeating-linear-gradient(0deg, transparent 0 15px, rgba(255, 255, 255, 0.025) 16px, transparent 17px);
+    opacity: 0.78;
+}
+
+.drop-feature:hover {
+    transform: translateY(-8px);
+    border-color: rgba(111, 231, 255, 0.36);
+    box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.46),
+        0 0 38px rgba(111, 231, 255, 0.1);
+}
+
+.drop-feature-media {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    padding: 56px 32px 118px;
+}
+
+.drop-feature-media::before {
+    content: "";
+    position: absolute;
+    width: min(430px, 72%);
+    aspect-ratio: 1;
+    border: 1px solid rgba(111, 231, 255, 0.12);
+    transform: rotate(45deg);
+    animation: slowSpin 18s linear infinite;
+}
+
+.drop-feature-media img {
+    position: relative;
+    z-index: 1;
+    width: min(520px, 90%);
+    height: auto;
+    filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.4));
+    transition: transform 0.36s ease, filter 0.36s ease;
+}
+
+.drop-feature:hover .drop-feature-media img {
+    transform: translateY(-6px) scale(1.018);
+    filter:
+        drop-shadow(0 30px 50px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 24px rgba(111, 231, 255, 0.12));
+}
+
+.drop-feature-info {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    left: 24px;
+    z-index: 2;
+    display: grid;
+    gap: 8px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.drop-feature-info span,
+.drop-feature-info small {
+    color: rgba(246, 244, 255, 0.58);
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.drop-feature-info strong {
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 .system-section {
     display: flex;
     align-items: center;
@@ -830,6 +1023,11 @@ p {
     50% { transform: translateY(-8px); }
 }
 
+@keyframes slowSpin {
+    from { transform: rotate(45deg); }
+    to { transform: rotate(405deg); }
+}
+
 @keyframes fadeOut {
     from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     to { opacity: 0; transform: translate(-50%, -50%) scale(0.25); }
@@ -845,7 +1043,8 @@ p {
 
 @media (max-width: 900px) {
     .grid,
-    .product-detail {
+    .product-detail,
+    .drop-preview {
         grid-template-columns: 1fr;
     }
 
@@ -855,6 +1054,14 @@ p {
 
     .product-hero-media {
         min-height: 430px;
+    }
+
+    .drop-preview {
+        min-height: auto;
+    }
+
+    .drop-feature {
+        min-height: 470px;
     }
 }
 
@@ -923,6 +1130,32 @@ p {
 
     .product-page {
         padding: 42px 20px 82px;
+    }
+
+    .drop-preview {
+        padding: 76px 20px;
+    }
+
+    .drop-copy h2 {
+        letter-spacing: 2px;
+    }
+
+    .drop-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ghost-link {
+        width: min(100%, 330px);
+        text-align: center;
+    }
+
+    .drop-feature {
+        min-height: 410px;
+    }
+
+    .drop-feature-media {
+        padding: 42px 18px 116px;
     }
 
     .product-hero-media {
