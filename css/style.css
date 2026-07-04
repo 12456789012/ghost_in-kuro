@@ -518,6 +518,36 @@ p {
     object-fit: contain;
 }
 
+.product-visual img.apparel-photo,
+.product-visual img.product-photo[src$=".jpg"] {
+    width: 100%;
+    max-width: none;
+    height: 226px;
+    object-fit: cover;
+    opacity: 0.92;
+    filter: saturate(0.78) contrast(1.08) brightness(0.84);
+}
+
+.locked-visual img {
+    opacity: 0.5;
+    filter: blur(1px) drop-shadow(0 0 24px rgba(184, 153, 255, 0.18));
+}
+
+.lock-mark {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    z-index: 2;
+    padding: 8px 10px;
+    border: 1px solid rgba(111, 231, 255, 0.22);
+    background: rgba(5, 5, 8, 0.58);
+    color: rgba(246, 244, 255, 0.72);
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 .product-info {
     display: flex;
     flex: 1;
@@ -585,6 +615,11 @@ p {
     margin: 0 auto;
 }
 
+.product-hero-stack {
+    display: grid;
+    gap: 14px;
+}
+
 .product-hero-media,
 .product-panel {
     position: relative;
@@ -629,6 +664,56 @@ p {
     object-fit: contain;
 }
 
+.product-hero-media img.apparel-photo,
+.product-hero-media img.product-photo[src$=".jpg"] {
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+    opacity: 0.94;
+    filter: saturate(0.82) contrast(1.08) brightness(0.86);
+}
+
+.product-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.gallery-tile {
+    position: relative;
+    min-height: 106px;
+    overflow: hidden;
+    border: 1px solid rgba(184, 153, 255, 0.14);
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.gallery-tile.active {
+    border-color: rgba(111, 231, 255, 0.38);
+    box-shadow: 0 0 18px rgba(111, 231, 255, 0.08);
+}
+
+.gallery-tile img {
+    width: 100%;
+    height: 100%;
+    min-height: 106px;
+    object-fit: cover;
+    filter: saturate(0.75) contrast(1.08) brightness(0.82);
+}
+
+.gallery-tile span {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    z-index: 1;
+    color: rgba(246, 244, 255, 0.72);
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
 .product-panel {
     padding: 42px;
 }
@@ -642,6 +727,36 @@ p {
 .product-description {
     max-width: none;
     margin-bottom: 34px;
+}
+
+.drop-status {
+    display: grid;
+    gap: 8px;
+    margin: 0 0 28px;
+    padding: 18px;
+    border: 1px solid rgba(111, 231, 255, 0.18);
+    background:
+        linear-gradient(90deg, rgba(111, 231, 255, 0.045), rgba(184, 153, 255, 0.035)),
+        rgba(255, 255, 255, 0.018);
+}
+
+.drop-status span,
+.drop-status small,
+.drop-rules span {
+    color: rgba(246, 244, 255, 0.58);
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.drop-status strong {
+    color: rgba(246, 244, 255, 0.94);
+    font-family: "Orbitron", "Space Grotesk", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .detail-row {
@@ -684,6 +799,19 @@ p {
 
 .product-cta {
     margin-top: 34px;
+}
+
+.drop-rules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.drop-rules span {
+    padding: 9px 10px;
+    border: 1px solid rgba(184, 153, 255, 0.18);
+    background: rgba(255, 255, 255, 0.018);
 }
 
 .drop-preview {
