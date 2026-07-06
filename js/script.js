@@ -3,34 +3,60 @@ window.addEventListener("load", () => {
     console.log("Ghost in Kuro loaded");
 
     /* BACKGROUND AUDIO */
-    const audioToggle = document.querySelector(".audio-toggle");
-    const backgroundAudio = document.querySelector("#background-audio");
-    if (audioToggle && backgroundAudio) {
-        backgroundAudio.volume = 0.18;
-        const setAudioState = (enabled) => {
-            audioToggle.textContent = enabled ? "SOUND ON" : "SOUND OFF";
-            audioToggle.classList.toggle("active", enabled);
-            localStorage.setItem("ghostAudio", enabled ? "on" : "off");
-        };
-        if (localStorage.getItem("ghostAudio") === "on") {
-            backgroundAudio.play()
-                .then(() => setAudioState(true))
-                .catch(() => setAudioState(false));
-        }
-        audioToggle.addEventListener("click", async () => {
-            if (backgroundAudio.paused) {
-                try {
-                    await backgroundAudio.play();
-                    setAudioState(true);
-                } catch (error) {
-                    audioToggle.textContent = "SOUND BLOCKED";
-                }
-            } else {
-                backgroundAudio.pause();
-                setAudioState(false);
-            }
-        });
+    const audioSource = "assets/musique%20de%20fond/uniquecreativeaudio-ambient-sci-fi-electronic-dreamer-calm-synth-instrumental-294746.mp3";
+    let audioToggle = document.querySelector(".audio-toggle");
+    let backgroundAudio = document.querySelector("#background-audio");
+
+    if (!backgroundAudio) {
+        backgroundAudio = document.createElement("audio");
+        backgroundAudio.id = "background-audio";
+        backgroundAudio.loop = true;
+        backgroundAudio.preload = "auto";
+        document.body.prepend(backgroundAudio);
     }
+
+    if (!audioToggle) {
+        audioToggle = document.createElement("button");
+        audioToggle.className = "audio-toggle";
+        audioToggle.type = "button";
+        audioToggle.textContent = "SOUND OFF";
+        document.body.appendChild(audioToggle);
+    }
+
+    backgroundAudio.src = audioSource;
+    backgroundAudio.volume = 0.18;
+
+    const setAudioState = (enabled) => {
+        audioToggle.textContent = enabled ? "SOUND ON" : "SOUND OFF";
+        audioToggle.classList.toggle("active", enabled);
+        localStorage.setItem("ghostAudio", enabled ? "on" : "off");
+    };
+
+    const startAudio = async () => {
+        try {
+            backgroundAudio.muted = false;
+            await backgroundAudio.play();
+            setAudioState(true);
+        } catch (error) {
+            audioToggle.textContent = "SOUND ERROR";
+            audioToggle.classList.remove("active");
+            console.warn("Audio playback failed:", error);
+        }
+    };
+
+    backgroundAudio.addEventListener("error", () => {
+        audioToggle.textContent = "SOUND ERROR";
+        audioToggle.classList.remove("active");
+    });
+
+    audioToggle.addEventListener("click", () => {
+        if (backgroundAudio.paused) {
+            startAudio();
+        } else {
+            backgroundAudio.pause();
+            setAudioState(false);
+        }
+    });
 
     /* CANVAS */
     const canvas = document.getElementById("pcb-canvas");
