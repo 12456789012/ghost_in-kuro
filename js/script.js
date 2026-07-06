@@ -2,6 +2,36 @@ window.addEventListener("load", () => {
 
     console.log("Ghost in Kuro loaded");
 
+    /* BACKGROUND AUDIO */
+    const audioToggle = document.querySelector(".audio-toggle");
+    const backgroundAudio = document.querySelector("#background-audio");
+    if (audioToggle && backgroundAudio) {
+        backgroundAudio.volume = 0.18;
+        const setAudioState = (enabled) => {
+            audioToggle.textContent = enabled ? "SOUND ON" : "SOUND OFF";
+            audioToggle.classList.toggle("active", enabled);
+            localStorage.setItem("ghostAudio", enabled ? "on" : "off");
+        };
+        if (localStorage.getItem("ghostAudio") === "on") {
+            backgroundAudio.play()
+                .then(() => setAudioState(true))
+                .catch(() => setAudioState(false));
+        }
+        audioToggle.addEventListener("click", async () => {
+            if (backgroundAudio.paused) {
+                try {
+                    await backgroundAudio.play();
+                    setAudioState(true);
+                } catch (error) {
+                    audioToggle.textContent = "SOUND BLOCKED";
+                }
+            } else {
+                backgroundAudio.pause();
+                setAudioState(false);
+            }
+        });
+    }
+
     /* CANVAS */
     const canvas = document.getElementById("pcb-canvas");
     if (canvas) {
