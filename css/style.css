@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --void: #050508;
     --night: #090914;
     --panel: rgba(255, 255, 255, 0.035);
@@ -284,7 +284,7 @@ nav {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    min-height: calc(100vh - 86px);
+    min-height: calc(100svh - 86px);
     padding: 72px 24px;
     text-align: center;
 }
@@ -622,7 +622,7 @@ p {
 }
 
 .product-page {
-    min-height: calc(100vh - 86px);
+    min-height: calc(100svh - 86px);
     padding: 70px clamp(20px, 5vw, 60px) 110px;
 }
 
@@ -1257,12 +1257,12 @@ p {
     }
 
     .hero {
-        min-height: auto;
-        padding: 64px 20px 72px;
+        min-height: calc(100svh - 132px);
+        padding: 28px 20px 40px;
     }
 
     .hero-logo {
-        width: min(85vw, 350px);
+        width: min(82vw, 330px);
     }
 
     h1 {
@@ -1281,6 +1281,14 @@ p {
         padding: 12px 18px;
         font-size: 10px;
         letter-spacing: 2px;
+    }
+
+    .audio-toggle {
+        right: 18px;
+        bottom: 18px;
+        min-width: 104px;
+        padding: 10px 12px;
+        font-size: 8px;
     }
 
     .shop {

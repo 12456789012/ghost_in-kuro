@@ -1,4 +1,4 @@
-window.addEventListener("load", () => {
+﻿window.addEventListener("load", () => {
 
     console.log("Ghost in Kuro loaded");
 
@@ -26,6 +26,13 @@ window.addEventListener("load", () => {
     backgroundAudio.src = audioSource;
     backgroundAudio.volume = 0.18;
 
+    const savedAudioTime = Number(sessionStorage.getItem("ghostAudioTime") || "0");
+    const saveAudioTime = () => {
+        if (!Number.isNaN(backgroundAudio.currentTime)) {
+            sessionStorage.setItem("ghostAudioTime", String(backgroundAudio.currentTime));
+        }
+    };
+
     const setAudioState = (enabled) => {
         audioToggle.textContent = enabled ? "SOUND ON" : "SOUND OFF";
         audioToggle.classList.toggle("active", enabled);
@@ -38,16 +45,24 @@ window.addEventListener("load", () => {
             await backgroundAudio.play();
             setAudioState(true);
         } catch (error) {
-            audioToggle.textContent = "SOUND ERROR";
+            audioToggle.textContent = "SOUND READY";
             audioToggle.classList.remove("active");
             console.warn("Audio playback failed:", error);
         }
     };
 
+    backgroundAudio.addEventListener("loadedmetadata", () => {
+        if (savedAudioTime > 0 && savedAudioTime < backgroundAudio.duration) {
+            backgroundAudio.currentTime = savedAudioTime;
+        }
+    });
+
+    backgroundAudio.addEventListener("timeupdate", saveAudioTime);
     backgroundAudio.addEventListener("error", () => {
         audioToggle.textContent = "SOUND ERROR";
         audioToggle.classList.remove("active");
     });
+    window.addEventListener("pagehide", saveAudioTime);
 
     audioToggle.addEventListener("click", () => {
         if (backgroundAudio.paused) {
@@ -58,6 +73,9 @@ window.addEventListener("load", () => {
         }
     });
 
+    if (localStorage.getItem("ghostAudio") === "on") {
+        startAudio();
+    }
     /* CANVAS */
     const canvas = document.getElementById("pcb-canvas");
     if (canvas) {
@@ -104,16 +122,32 @@ window.addEventListener("load", () => {
     /* ENTER BUTTON */
     document.querySelectorAll(".enter-btn").forEach(btn => {
         btn.addEventListener("click", (e) => {
-            const target = document.querySelector("#system");
+            const label = btn.dataset.label || btn.textContent;
+            btn.dataset.label = label;
+            const href = btn.getAttribute("href");
+            const target = href && href.startsWith("#") ? document.querySelector(href) : document.querySelector("#system");
             if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
+                e.preventDefault();
+                const top = target.getBoundingClientRect().top + window.scrollY;
+                const start = window.scrollY;
+                const distance = top - start;
+                const duration = 950;
+                const startedAt = performance.now();
+
+                const animateScroll = (now) => {
+                    const progress = Math.min((now - startedAt) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    window.scrollTo(0, start + distance * eased);
+                    if (progress < 1) requestAnimationFrame(animateScroll);
+                };
+
+                requestAnimationFrame(animateScroll);
             }
             btn.innerText = "BOOTING...";
             setTimeout(() => btn.innerText = "ACCESS GRANTED", 800);
-            setTimeout(() => btn.innerText = "ENTER SYSTEM", 2000);
+            setTimeout(() => btn.innerText = label, 2000);
         });
     });
-
     /* STARS */
     const starsContainer = document.querySelector(".stars");
     if (starsContainer) {
@@ -150,6 +184,10 @@ document.querySelectorAll("a").forEach(link => {
         const href = link.getAttribute("href");
         if (!href || href.startsWith("#")) return;
         e.preventDefault();
+        const backgroundAudio = document.querySelector("#background-audio");
+        if (backgroundAudio && !Number.isNaN(backgroundAudio.currentTime)) {
+            sessionStorage.setItem("ghostAudioTime", String(backgroundAudio.currentTime));
+        }
         if (transition) transition.classList.add("active");
         document.body.style.opacity = "0";
         setTimeout(() => {
