@@ -36,6 +36,7 @@
     const setAudioState = (enabled) => {
         audioToggle.textContent = enabled ? "SOUND ON" : "SOUND OFF";
         audioToggle.classList.toggle("active", enabled);
+        audioToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
         localStorage.setItem("ghostAudio", enabled ? "on" : "off");
     };
 
@@ -75,6 +76,41 @@
 
     if (localStorage.getItem("ghostAudio") === "on") {
         startAudio();
+    }
+
+    /* PRODUCT GALLERIES */
+    document.querySelectorAll(".product-hero-stack").forEach(stack => {
+        const mainImage = stack.querySelector(".product-hero-media img");
+        const tiles = stack.querySelectorAll(".gallery-tile");
+        if (!mainImage || !tiles.length) return;
+
+        tiles.forEach(tile => {
+            tile.addEventListener("click", () => {
+                const tileImage = tile.querySelector("img");
+                if (!tileImage) return;
+                mainImage.src = tileImage.src;
+                tiles.forEach(item => item.classList.remove("active"));
+                tile.classList.add("active");
+            });
+        });
+    });
+
+    /* SOFT REVEALS */
+    const revealItems = document.querySelectorAll(".drop-copy, .drop-feature, .product-card, .product-panel, .product-hero-stack, .system-container");
+    revealItems.forEach(item => item.classList.add("reveal"));
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.18 });
+
+        revealItems.forEach(item => observer.observe(item));
+    } else {
+        revealItems.forEach(item => item.classList.add("visible"));
     }
     /* CANVAS */
     const canvas = document.getElementById("pcb-canvas");
@@ -182,7 +218,9 @@ const transition = document.querySelector(".aaa-transition");
 document.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", (e) => {
         const href = link.getAttribute("href");
-        if (!href || href.startsWith("#")) return;
+        if (!href || href.startsWith("#") || link.target === "_blank") return;
+        const url = new URL(href, window.location.href);
+        if (url.origin !== window.location.origin && url.protocol !== "file:") return;
         e.preventDefault();
         const backgroundAudio = document.querySelector("#background-audio");
         if (backgroundAudio && !Number.isNaN(backgroundAudio.currentTime)) {
